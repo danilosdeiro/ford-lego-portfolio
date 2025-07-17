@@ -1,0 +1,70 @@
+button.lego-btn {
+    position: relative;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0px var(--shadow-color);
+    transition: all 0.1s ease-in-out;
+    text-transform: uppercase;
+    background-color: #22c55e;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    padding: 0.5rem 1rem;
+}
+
+button.lego-btn:active {
+    transform: translateY(2px) translateX(2px);
+    box-shadow: 1px 1px 0px var(--shadow-color);
+}
+
+button.lego-btn::before,
+button.lego-btn::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    top: 4px;
+}
+
+button.lego-btn::before {
+    left: 10px;
+}
+
+button.lego-btn::after {
+    right: 10px;
+}
+
+button.lego-arrow-btn {
+    position: relative;
+    border: 2px solid var(--border-color);
+    box-shadow: 3px 3px 0px var(--shadow-color);
+    transition: all 0.1s ease-in-out;
+    background-color: #3b82f6; /* blue-500 */
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+button.lego-arrow-btn:active {
+    transform: translateY(2px) translateX(2px) !important;
+    box-shadow: 1px 1px 0px var(--shadow-color);
+}
+
+.lego-input {
+    border: 2px solid var(--border-color);
+    background-color: #E0E0E0;
+    color: #000;
+    padding: 10px;
+    box-shadow: inset 2px 2px 0px #888, inset -2px -2px 0px #FFF;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.lego-input::placeholder {
+    color: #555;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.lego-input:focus {
+    outline: 2px solid var(--accent-yellow);
+}

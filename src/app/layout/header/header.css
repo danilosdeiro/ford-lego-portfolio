@@ -1,0 +1,380 @@
+.header-main {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+    border-bottom: 4px solid var(--border-color);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.ford-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0 var(--shadow-color);
+    letter-spacing: 2px;
+}
+
+.ford-logo span {
+    color: var(--text-secondary);
+}
+
+#theme-toggle,
+#menu-btn,
+#close-menu-btn {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#theme-toggle:hover,
+#menu-btn:hover,
+#close-menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#cart-icon {
+    position: relative;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#cart-count {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background-color: #ef4444;
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 9999px;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-color);
+    font-family: sans-serif;
+}
+
+/* --- Estilos do Menu Lateral --- */
+
+#side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 250px;
+    background-color: var(--bg-secondary);
+    border-left: 4px solid var(--border-color);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+#side-menu.active {
+    transform: translateX(0);
+}
+
+.side-menu-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 2rem;
+}
+
+.nav-links a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.25rem;
+    transition: background-color 0.2s;
+}
+
+.nav-links a:hover {
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+}
+
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+#menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#close-login-modal-btn {
+  position: absolute;
+  top: 0.5rem;  /* 8px do topo */
+  right: 1rem; /* 16px da direita */
+  font-size: 2rem; /* Aumenta o tamanho do '×' */
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1; /* Ajusta o alinhamento vertical do '×' */
+  padding: 0;
+}
+
+/* O 'p-6' é uma classe que veio do seu protótipo, vamos dar um estilo a ela */
+.modal-container .p-6 {
+  padding: 2rem;
+}
+
+/* As classes 'mb-4' e 'mb-6' também vieram do protótipo */
+.modal-container .mb-4, 
+.modal-container .mb-6 {
+  margin-bottom: 1.5rem; /* Aumenta o espaço entre os campos */
+}
+
+.modal-container label {
+  display: block; /* Garante que o label fique em sua própria linha */
+  margin-bottom: 0.5rem; /* Espaço entre o label e o input */
+}
+
+.modal-container .lego-input {
+  width: 100%; /* Faz o input ocupar toda a largura disponível */
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+/* Container para os botões de ação do formulário */
+.modal-container .form-actions {
+  display: flex;
+  gap: 1rem; /* Espaço entre os botões */
+  margin-top: 2rem; /* Espaço acima dos botões */
+}
+
+/* Estilo para que os botões ocupem o espaço igualmente */
+.modal-container .form-actions .lego-btn {
+  flex-grow: 1; /* Faz os botões crescerem para preencher o espaço */
+  width: 50%; /* Garante que cada um ocupe metade do espaço */
+  padding: 0.75rem;
+}
+
+/* Remove os "pinos" dos botões dentro do modal para um look mais limpo */
+.modal-container .form-actions .lego-btn::before,
+.modal-container .form-actions .lego-btn::after {
+  content: none;
+}
+
+/* Cor específica para o botão de login (Entrar) */
+.modal-container .btn-login {
+  background-color: #22c55e; /* Verde */
+}
+.modal-container .btn-login:hover {
+  background-color: #16a34a; /* Verde mais escuro */
+}
+
+/* Cor específica para o botão de cadastro */
+.modal-container .btn-register {
+  background-color: #3b82f6; /* Azul */
+}
+.modal-container .btn-register:hover {
+  background-color: #2563eb; /* Azul mais escuro */
+}
+
+.form-toggle-text {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.form-toggle-text button {
+  background: none;
+  border: none;
+  color: var(--accent-yellow);
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.875rem;
+  padding: 0;
+}
+
+.error-text {
+  color: #fca5a5; /* red-300 */
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.welcome-message {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.btn-logout {
+  background-color: #dc2626; /* red-600 */
+}
+
+
+
+/* --- ESTILOS DO MODAL DO CARRINHO --- */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 4px solid var(--border-color);
+}
+.cart-close-btn {
+  font-size: 2.5rem;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  line-height: 1;
+}
+.cart-items-container {
+  padding: 1.5rem;
+  max-height: 350px;
+  overflow-y: auto;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.cart-item-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid var(--border-color);
+}
+.cart-item-info {
+  flex-grow: 1;
+}
+.cart-item-info h4 {
+  font-size: 1rem;
+}
+.cart-item-info p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.cart-item-quantity {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--border-color);
+}
+.cart-item-quantity button {
+  width: 30px;
+  height: 30px;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+.cart-item-quantity span {
+  width: 40px;
+  text-align: center;
+  background: #fff;
+  color: var(--text-dark);
+}
+.cart-empty-text {
+  text-align: center;
+  padding: 2rem 0;
+}
+.cart-footer {
+  padding: 1.5rem;
+  border-top: 4px solid var(--border-color);
+}
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+.checkout-btn {
+  width: 100%;
+}
+.checkout-btn::before, .checkout-btn::after { content: none; }
+
+/* --- Estilos para o Checkbox da LGPD no Modal --- */
+
+.form-group-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group-checkbox input {
+  /* Define um tamanho para o checkbox */
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0; /* Impede que o checkbox encolha */
+}
+
+.form-group-checkbox label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Estilo para o botão quando ele está desabilitado */
+.lego-btn:disabled {
+  background-color: #555; /* Cinza escuro */
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.lego-btn:disabled:hover {
+  background-color: #555; /* Garante que a cor não mude no hover */
+}
+
+.lego-input.ng-invalid.ng-touched {
+  border-color: #ef4444; /* Borda vermelha */
+  background-color: #fca5a5; /* Fundo vermelho claro */
+}

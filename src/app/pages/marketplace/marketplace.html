@@ -1,0 +1,30 @@
+<section class="marketplace-section">
+  <h2 class="page-title">Marketplace LEGO</h2>
+  <div class="product-grid">
+
+    @for (product of products; track product.id) {
+    <div class="product-card">
+      <div class="product-image-container" [style.backgroundImage]="'url(' + product.imgCar + ')'">
+        <img [src]="product.imgBox" [alt]="'Caixa do ' + product.name" class="product-image">
+      </div>
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <!-- NOVO: Parágrafo para a contagem de peças -->
+        <p class="product-pieces">Peças: {{ product.pieceCount }}</p>
+        <div class="product-purchase">
+          <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
+          <div class="quantity-selector">
+            <button (click)="changeQuantity(product.id, -1)">-</button>
+            <span>{{ quantities[product.id] }}</span>
+            <button (click)="changeQuantity(product.id, 1)">+</button>
+          </div>
+        </div>
+        <button class="lego-btn add-to-cart-btn" (click)="addToCart(product)">
+          Adicionar ao Carrinho
+        </button>
+      </div>
+    </div>
+    }
+
+  </div>
+</section>

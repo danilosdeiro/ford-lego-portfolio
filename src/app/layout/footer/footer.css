@@ -1,0 +1,37 @@
+.footer-main {
+  padding: 1.5rem;
+  margin-top: 4rem;
+  background-color: var(--bg-primary);
+  border-top: 4px solid var(--border-color);
+}
+
+.footer-container {
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.follow-text {
+  margin-bottom: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 2rem;
+}
+
+.social-icons a {
+  color: var(--text-primary);
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: var(--text-secondary);
+}
+
+.disclaimer-text {
+  font-size: 0.75rem;
+  margin-top: 1.5rem;
+  color: var(--text-secondary);
+}

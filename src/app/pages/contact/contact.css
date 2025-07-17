@@ -1,0 +1,58 @@
+.contact-section {
+  padding: 2rem 1rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 4px solid var(--border-color);
+  background-color: var(--bg-secondary);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group .lego-input {
+  width: 100%;
+}
+
+.form-group-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.form-group-checkbox input {
+  width: 20px;
+  height: 20px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1.25rem;
+}
+
+/* Estilo para o botão desabilitado */
+.submit-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
