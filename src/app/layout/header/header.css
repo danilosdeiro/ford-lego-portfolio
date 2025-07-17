@@ -149,35 +149,34 @@
 
 #close-login-modal-btn {
   position: absolute;
-  top: 0.5rem;  /* 8px do topo */
-  right: 1rem; /* 16px da direita */
-  font-size: 2rem; /* Aumenta o tamanho do '×' */
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 2rem;
   color: var(--text-primary);
   background: none;
   border: none;
   cursor: pointer;
-  line-height: 1; /* Ajusta o alinhamento vertical do '×' */
+  line-height: 1;
   padding: 0;
 }
 
-/* O 'p-6' é uma classe que veio do seu protótipo, vamos dar um estilo a ela */
+
 .modal-container .p-6 {
   padding: 2rem;
 }
 
-/* As classes 'mb-4' e 'mb-6' também vieram do protótipo */
 .modal-container .mb-4, 
 .modal-container .mb-6 {
-  margin-bottom: 1.5rem; /* Aumenta o espaço entre os campos */
+  margin-bottom: 1.5rem;
 }
 
 .modal-container label {
-  display: block; /* Garante que o label fique em sua própria linha */
-  margin-bottom: 0.5rem; /* Espaço entre o label e o input */
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 .modal-container .lego-input {
-  width: 100%; /* Faz o input ocupar toda a largura disponível */
+  width: 100%;
 }
 
 .modal-title {
@@ -187,40 +186,35 @@
   color: var(--text-primary);
 }
 
-/* Container para os botões de ação do formulário */
 .modal-container .form-actions {
   display: flex;
-  gap: 1rem; /* Espaço entre os botões */
-  margin-top: 2rem; /* Espaço acima dos botões */
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-/* Estilo para que os botões ocupem o espaço igualmente */
 .modal-container .form-actions .lego-btn {
-  flex-grow: 1; /* Faz os botões crescerem para preencher o espaço */
-  width: 50%; /* Garante que cada um ocupe metade do espaço */
+  flex-grow: 1;
+  width: 50%;
   padding: 0.75rem;
 }
 
-/* Remove os "pinos" dos botões dentro do modal para um look mais limpo */
 .modal-container .form-actions .lego-btn::before,
 .modal-container .form-actions .lego-btn::after {
   content: none;
 }
 
-/* Cor específica para o botão de login (Entrar) */
 .modal-container .btn-login {
-  background-color: #22c55e; /* Verde */
+  background-color: #22c55e;
 }
 .modal-container .btn-login:hover {
-  background-color: #16a34a; /* Verde mais escuro */
+  background-color: #16a34a;
 }
 
-/* Cor específica para o botão de cadastro */
 .modal-container .btn-register {
-  background-color: #3b82f6; /* Azul */
+  background-color: #3b82f6;
 }
 .modal-container .btn-register:hover {
-  background-color: #2563eb; /* Azul mais escuro */
+  background-color: #2563eb;
 }
 
 .form-toggle-text {
@@ -242,7 +236,7 @@
 }
 
 .error-text {
-  color: #fca5a5; /* red-300 */
+  color: #fca5a5;
   font-size: 0.8rem;
   margin-top: 0.5rem;
 }
@@ -253,12 +247,9 @@
 }
 
 .btn-logout {
-  background-color: #dc2626; /* red-600 */
+  background-color: #dc2626;
 }
 
-
-
-/* --- ESTILOS DO MODAL DO CARRINHO --- */
 .cart-header {
   display: flex;
   justify-content: space-between;
@@ -339,8 +330,6 @@
 }
 .checkout-btn::before, .checkout-btn::after { content: none; }
 
-/* --- Estilos para o Checkbox da LGPD no Modal --- */
-
 .form-group-checkbox {
   display: flex;
   align-items: center;
@@ -349,10 +338,9 @@
 }
 
 .form-group-checkbox input {
-  /* Define um tamanho para o checkbox */
   width: 18px;
   height: 18px;
-  flex-shrink: 0; /* Impede que o checkbox encolha */
+  flex-shrink: 0;
 }
 
 .form-group-checkbox label {
@@ -361,9 +349,8 @@
   line-height: 1.4;
 }
 
-/* Estilo para o botão quando ele está desabilitado */
 .lego-btn:disabled {
-  background-color: #555; /* Cinza escuro */
+  background-color: #555;
   color: #aaa;
   cursor: not-allowed;
   box-shadow: none;
@@ -371,12 +358,12 @@
 }
 
 .lego-btn:disabled:hover {
-  background-color: #555; /* Garante que a cor não mude no hover */
+  background-color: #555;
 }
 
 .lego-input.ng-invalid.ng-touched {
-  border-color: #ef4444; /* Borda vermelha */
-  background-color: #fca5a5; /* Fundo vermelho claro */
+  border-color: #ef4444;
+  background-color: #fca5a5;
 }
 
 @keyframes cart-update {
@@ -389,9 +376,8 @@
   animation: cart-update 0.5s ease-in-out;
 }
 
-/* Mensagem de erro para o login */
 .login-error-text {
-  background-color: #ef4444; /* Vermelho */
+  background-color: #ef4444;
   color: white;
   padding: 0.75rem;
   text-align: center;
@@ -399,13 +385,10 @@
   border-radius: 4px;
 }
 
-/* --- ESTILOS PARA O BOTÃO DE REVELAR SENHA --- */
-
 .password-wrapper {
-  position: relative; /* Container para posicionar o botão */
+  position: relative;
 }
 
-/* Adiciona um espaço à direita no input para o ícone não sobrepor o texto */
 .password-wrapper .lego-input {
   padding-right: 45px;
 }
@@ -415,8 +398,6 @@
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  
-  /* Estilo do botão */
   background: none;
   border: none;
   cursor: pointer;
@@ -425,8 +406,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  /* Estilo do ícone */
   color: #555;
   font-size: 1.1rem;
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { RouterModule, NavigationEnd, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../core/services/auth';
+import { Auth } from '../../core/services/auth';
 import { CartService, CartItem } from '../../core/services/cart';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
@@ -37,7 +37,7 @@ export class Header implements OnInit, OnDestroy {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: Auth,
     private cartService: CartService,
     private router: Router
   ) {
@@ -105,26 +105,21 @@ export class Header implements OnInit, OnDestroy {
     }
   }
 
-  // --- MÉTODO ATUALIZADO ---
   onRegister() {
     if (this.registerForm.valid) {
       const { confirmPassword, lgpdConsent, ...userData } = this.registerForm.value;
-      
       if (this.authService.register(userData)) {
-        // Se o registro foi bem-sucedido, faz o login automaticamente
         const loginCredentials = {
           username: userData.username,
           password: userData.password
         };
         if (this.authService.login(loginCredentials)) {
-          // Se o login automático também foi bem-sucedido, fecha o modal
           this.closeLoginModal();
         }
       } else {
-        // Se o registro falhou (usuário já existe), mostra um alerta
         alert('Usuário ou email já cadastrado!');
       }
-      
+
       this.registerForm.reset();
     }
   }
@@ -140,7 +135,7 @@ export class Header implements OnInit, OnDestroy {
   toggleRegisterConfirmPasswordVisibility() {
     this.registerConfirmPasswordVisible = !this.registerConfirmPasswordVisible;
   }
-  
+
   logout() { this.authService.logout(); }
   toggleMenu() { this.isMenuOpen = !this.isMenuOpen; }
   openLoginModal() { this.isLoginModalOpen = true; this.showLoginForm = true; this.loginError = null; }
@@ -158,7 +153,7 @@ export class Header implements OnInit, OnDestroy {
   }
 
   checkout() {
-    if(this.cartItems.length > 0) {
+    if (this.cartItems.length > 0) {
       alert('Compra finalizada com sucesso! (Simulação)');
       this.cartService.clearCart();
       this.closeCartModal();

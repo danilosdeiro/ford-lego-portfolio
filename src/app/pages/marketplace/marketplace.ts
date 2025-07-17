@@ -4,7 +4,7 @@ import { CartService, Product } from '../../core/services/cart';
 
 export interface MarketplaceProduct extends Product {
   imgBox: string;
-  pieceCount: number; // Opcional, se quiser exibir a contagem de peças
+  pieceCount: number;
 }
 
 @Component({
@@ -18,7 +18,7 @@ export class Marketplace {
   products: MarketplaceProduct[] = [
     {
       id: 1, name: 'Mustang GT', price: 899.99,
-      pieceCount: 1471, // Exemplo de contagem de peças
+      pieceCount: 1471,
       imgCar: 'assets/images/mustangmp.png',
       imgBox: 'assets/images/mustangbox.png'
     },
@@ -34,15 +34,23 @@ export class Marketplace {
       imgCar: 'assets/images/broncomp.png',
       imgBox: 'assets/images/broncobox.png'
     },
-    { id: 4, name: 'Ford GT 2022', price: 999.99,
+    {
+      id: 4, name: 'Ford GT 2022', price: 999.99,
       pieceCount: 1466,
       imgCar: 'assets/images/fordgtmp.png',
       imgBox: 'assets/images/fordgtbox.jpg'
     },
-      { id: 5, name: 'Ford Pilots', price: 79.99,
+    {
+      id: 5, name: 'Ford Pilots', price: 79.99,
       pieceCount: 4,
       imgCar: 'assets/images/personagens.jpg',
       imgBox: 'assets/images/personagensbox.jpg'
+    },
+        {
+      id: 6, name: 'Ford Ka Classic', price: 479.99,
+      pieceCount: 293,
+      imgCar: 'assets/images/fordkamp.png',
+      imgBox: 'assets/images/fordkabox.png'
     }
   ];
 
@@ -61,33 +69,14 @@ export class Marketplace {
     }
   }
 
-  // --- MÉTODO ATUALIZADO ---
-changeQuantity(productId: number, change: number) {
-  // Detetive 1: A função foi chamada corretamente?
-  console.log(`--- Iniciando changeQuantity para o produto ${productId}, com alteração de ${change} ---`);
-
-  const currentQuantity = this.quantities[productId];
-  // Detetive 2: Qual era a quantidade antes do clique?
-  console.log('Quantidade atual no objeto de dados:', currentQuantity);
-
-  const newQuantity = currentQuantity + change;
-  // Detetive 3: Qual é a nova quantidade calculada?
-  console.log('Nova quantidade calculada:', newQuantity);
-
-  if (newQuantity >= 1) {
-    // Detetive 4: Entramos na condição para atualizar?
-    console.log('A nova quantidade é >= 1. O estado será atualizado.');
-    
-    // O código que deveria forçar a atualização
-    this.quantities = {
-      ...this.quantities,
-      [productId]: newQuantity
-    };
-
-    // Detetive 5: Como ficou o objeto de quantidades DEPOIS da atualização?
-    console.log('Novo objeto de quantidades:', this.quantities);
-  } else {
-    console.log('A nova quantidade é menor que 1. Nenhuma ação será tomada.');
+  changeQuantity(productId: number, change: number) {
+    const currentQuantity = this.quantities[productId];
+    const newQuantity = currentQuantity + change;
+    if (newQuantity >= 1) {
+      this.quantities = {
+        ...this.quantities,
+        [productId]: newQuantity
+      };
+    }
   }
-}
 }

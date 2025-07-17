@@ -16,8 +16,7 @@ button.lego-btn:active {
     box-shadow: 1px 1px 0px var(--shadow-color);
 }
 
-button.lego-btn::before,
-button.lego-btn::after {
+button.lego-btn::before, button.lego-btn::after {
     content: '';
     position: absolute;
     width: 10px;
@@ -58,7 +57,7 @@ button.lego-arrow-btn:active {
   padding: 10px;
   box-shadow: inset 2px 2px 0px #888, inset -2px -2px 0px #FFF;
   font-family: 'Press Start 2P', cursive;
-  box-sizing: border-box; /* <-- ADICIONE ESTA LINHA */
+  box-sizing: border-box;
 }
 
 .lego-input::placeholder {

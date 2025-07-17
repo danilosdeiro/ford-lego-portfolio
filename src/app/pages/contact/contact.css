@@ -49,7 +49,6 @@
   font-size: 1.25rem;
 }
 
-/* Estilo para o botão desabilitado */
 .submit-btn:disabled {
   background-color: #555;
   cursor: not-allowed;

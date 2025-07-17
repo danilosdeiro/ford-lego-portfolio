@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class Auth {
   private users: any[] = [];
   private storageKey = 'legoFordUsers';
 

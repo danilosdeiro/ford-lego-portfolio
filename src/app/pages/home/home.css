@@ -10,9 +10,8 @@
   text-shadow: 3px 3px 0px var(--shadow-color);
 }
 
-/* NOVO: Estilo para o texto em vermelho */
 .main-title span.play-text {
-  color: #ef4444; /* Vermelho forte */
+  color: #ef4444;
 }
 
 @media (min-width: 768px) {
@@ -80,16 +79,14 @@
   font-size: 1.5rem;
 }
 
-/* ATUALIZADO: Posição dos botões */
 .lego-arrow-btn.prev {
-  left: -60px; /* Movido mais para fora */
+  left: -60px;
 }
 
 .lego-arrow-btn.next {
-  right: -60px; /* Movido mais para fora */
+  right: -60px;
 }
 
-/* NOVO: Regra para telas menores */
 @media (max-width: 1024px) {
   .lego-arrow-btn.prev {
     left: 10px;
