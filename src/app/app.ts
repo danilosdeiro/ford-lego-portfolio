@@ -26,32 +26,61 @@ export class App implements OnInit {
   createLegoBackground() {
     const legoBackground = this.document.getElementById('lego-background');
     if (!legoBackground) return;
-
-    // Previne a criação duplicada de blocos
     if (legoBackground.childElementCount > 0) return;
 
-    const bgColors = ['#FFD700', '#FF0000', '#0000FF', '#008000', '#FFFFFF'];
-    for (let i = 0; i < 30; i++) {
-      const block = this.renderer.createElement('div');
-      this.renderer.setStyle(block, 'position', 'absolute');
-      this.renderer.setStyle(block, 'width', '20px');
-      this.renderer.setStyle(block, 'height', '20px');
-      this.renderer.setStyle(block, 'opacity', '0.3');
-      this.renderer.setStyle(block, 'left', `${Math.random() * 100}vw`);
-      this.renderer.setStyle(block, 'animation', `fall ${Math.random() * 5 + 5}s linear infinite`);
-      this.renderer.setStyle(block, 'animation-delay', `${Math.random() * 5}s`);
-      this.renderer.setStyle(block, 'background-color', bgColors[Math.floor(Math.random() * bgColors.length)]);
-      this.renderer.appendChild(legoBackground, block);
+    const colors = ['#fde047', '#ef4444', '#3b82f6', '#22c55e', '#ffffff'];
+    const brickTypes = [
+      { width: 40, height: 20, studs: [{ cx: 10, cy: 5 }, { cx: 30, cy: 5 }] },
+      { width: 20, height: 20, studs: [{ cx: 10, cy: 5 }] }
+    ];
+
+    for (let i = 0; i < 35; i++) {
+      const brickType = brickTypes[Math.floor(Math.random() * brickTypes.length)];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      const svg = this.renderer.createElement('svg', 'http://www.w3.org/2000/svg');
+      this.renderer.setAttribute(svg, 'class', 'lego-brick');
+      this.renderer.setAttribute(svg, 'width', `${brickType.width}`);
+      this.renderer.setAttribute(svg, 'height', `${brickType.height + 5}`);
+      this.renderer.setAttribute(svg, 'viewBox', `0 0 ${brickType.width} ${brickType.height + 5}`);
+      this.renderer.setStyle(svg, 'position', 'absolute');
+      this.renderer.setStyle(svg, 'left', `${Math.random() * 100}vw`);
+      this.renderer.setStyle(svg, 'animation', `fall ${Math.random() * 8 + 7}s linear infinite`);
+      this.renderer.setStyle(svg, 'animation-delay', `${Math.random() * 10}s`);
+      const rect = this.renderer.createElement('rect', 'http://www.w3.org/2000/svg');
+      this.renderer.setAttribute(rect, 'width', `${brickType.width}`);
+      this.renderer.setAttribute(rect, 'height', `${brickType.height}`);
+      this.renderer.setAttribute(rect, 'y', '5');
+      this.renderer.setAttribute(rect, 'rx', '2');
+      this.renderer.setAttribute(rect, 'fill', color);
+      this.renderer.appendChild(svg, rect);
+
+      brickType.studs.forEach(stud => {
+        const circle = this.renderer.createElement('circle', 'http://www.w3.org/2000/svg');
+        this.renderer.setAttribute(circle, 'cx', `${stud.cx}`);
+        this.renderer.setAttribute(circle, 'cy', '5');
+        this.renderer.setAttribute(circle, 'r', '4');
+        this.renderer.setAttribute(circle, 'fill', color);
+        this.renderer.setAttribute(circle, 'stroke', 'rgba(0,0,0,0.15)');
+        this.renderer.setAttribute(circle, 'stroke-width', '1');
+        this.renderer.appendChild(svg, circle);
+      });
+
+      this.renderer.appendChild(legoBackground, svg);
     }
 
-    const keyframes = `
-      @keyframes fall {
-        from { transform: translateY(-50px) rotate(0deg); }
-        to { transform: translateY(100vh) rotate(360deg); }
-      }
-    `;
-    const style = this.renderer.createElement('style');
-    style.innerHTML = keyframes;
-    this.renderer.appendChild(this.document.head, style);
+    const styleTagId = 'lego-fall-animation';
+    if (!this.document.getElementById(styleTagId)) {
+      const keyframes = `
+        @keyframes fall {
+          from { transform: translateY(-60px) rotate(0deg); }
+          to { transform: translateY(100vh) rotate(720deg); }
+        }
+      `;
+      const style = this.renderer.createElement('style');
+      style.id = styleTagId;
+      style.innerHTML = keyframes;
+      this.renderer.appendChild(this.document.head, style);
+    }
   }
 }

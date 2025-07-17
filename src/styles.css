@@ -107,3 +107,7 @@ main, app-footer {
   position: relative; /* Necessário para que o z-index funcione neles */
   z-index: 1; /* Coloca o conteúdo na camada 2, a mais alta */
 }
+
+.lego-brick {
+  opacity: 0.35;
+}
