@@ -378,3 +378,59 @@
   border-color: #ef4444; /* Borda vermelha */
   background-color: #fca5a5; /* Fundo vermelho claro */
 }
+
+@keyframes cart-update {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4) rotate(15deg); }
+  100% { transform: scale(1); }
+}
+
+#cart-icon.updated {
+  animation: cart-update 0.5s ease-in-out;
+}
+
+/* Mensagem de erro para o login */
+.login-error-text {
+  background-color: #ef4444; /* Vermelho */
+  color: white;
+  padding: 0.75rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+/* --- ESTILOS PARA O BOTÃO DE REVELAR SENHA --- */
+
+.password-wrapper {
+  position: relative; /* Container para posicionar o botão */
+}
+
+/* Adiciona um espaço à direita no input para o ícone não sobrepor o texto */
+.password-wrapper .lego-input {
+  padding-right: 45px;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  
+  /* Estilo do botão */
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 100%;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Estilo do ícone */
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.modal-container .lego-input {
+  width: 100%;
+}

@@ -21,10 +21,6 @@ export class AuthService {
     }
   }
 
-  public get currentUserValue(): any {
-    return this.currentUserSubject.value;
-  }
-
   private saveUsersToLocalStorage() {
     localStorage.setItem(this.storageKey, JSON.stringify(this.users));
   }
@@ -32,12 +28,11 @@ export class AuthService {
   register(userData: any): boolean {
     const userExists = this.users.some(user => user.email === userData.email || user.username === userData.username);
     if (userExists) {
-      alert('Usuário ou email já cadastrado!');
       return false;
     }
     this.users.push(userData);
     this.saveUsersToLocalStorage();
-    alert('Cadastro realizado com sucesso!');
+
     return true;
   }
 
@@ -45,10 +40,8 @@ export class AuthService {
     const user = this.users.find(u => u.username === credentials.username && u.password === credentials.password);
     if (user) {
       this.currentUserSubject.next(user);
-      alert(`Login bem-sucedido! Bem-vindo, ${user.username}!`);
       return true;
     } else {
-      alert('Usuário ou senha inválidos.');
       return false;
     }
   }

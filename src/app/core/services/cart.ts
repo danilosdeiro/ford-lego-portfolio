@@ -31,7 +31,6 @@ export class CartService {
       currentItems.push({ product, quantity });
     }
     this.cartItems.next([...currentItems]);
-    alert(`${quantity}x ${product.name} adicionado(s) ao carrinho!`);
   }
 
   updateQuantity(productId: number, change: number) {

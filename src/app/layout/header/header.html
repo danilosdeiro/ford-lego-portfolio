@@ -1,45 +1,45 @@
 <header class="header-main">
-    <div class="header-container">
-        <a routerLink="/" class="ford-logo" title="Página Inicial">
-            F<span>O</span>RD
-        </a>
-        <div class="header-actions">
-            <button id="theme-toggle" title="Mudar Tema" (click)="toggleTheme()">
-                <i [class]='themeIconClass'></i>
-            </button>
-            <div id="cart-icon" [class.hidden]="!isMarketplacePage" title="Carrinho" (click)="openCartModal()">
-                <i class="fa-solid fa-shopping-cart"></i>
-                @if(cartItemCount > 0) {
-                <span id="cart-count">{{ cartItemCount }}</span>
-                }
-            </div>
-            @if (currentUser) {
-            <div class="welcome-message">
-                Olá, {{ currentUser.username }}
-            </div>
-            <button class="lego-btn btn-logout" (click)="logout()">Sair</button>
-            } @else {
-            <button id="login-btn" class="lego-btn" (click)="openLoginModal()">
-                Login
-            </button>
-            }
-            <button id="menu-btn" title="Menu" (click)="toggleMenu()">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
+  <div class="header-container">
+    <a routerLink="/" class="ford-logo" title="Página Inicial">
+      F<span>O</span>RD
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle" title="Mudar Tema" (click)="toggleTheme()">
+        <i [class]="themeIconClass"></i>
+      </button>
+      <div id="cart-icon" [class.hidden]="!isMarketplacePage" title="Carrinho" (click)="openCartModal()" [class.updated]="cartUpdateIndicator">
+        <i class="fa-solid fa-shopping-cart"></i>
+        @if(cartItemCount > 0) {
+        <span id="cart-count">{{ cartItemCount }}</span>
+        }
+      </div>
+      @if (currentUser) {
+      <div class="welcome-message">
+        Olá, {{ currentUser.username }}
+      </div>
+      <button class="lego-btn btn-logout" (click)="logout()">Sair</button>
+      } @else {
+      <button id="login-btn" class="lego-btn" (click)="openLoginModal()">
+        Login
+      </button>
+      }
+      <button id="menu-btn" title="Menu" (click)="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
+  </div>
 </header>
 <nav id="side-menu" [class.active]="isMenuOpen">
-    <div class="side-menu-header">
-        <button id="close-menu-btn" (click)="toggleMenu()">
-            <i class="fa-solid fa-times"></i>
-        </button>
-    </div>
-    <ul class="nav-links">
-        <li><a routerLink="/" (click)="toggleMenu()">Início</a></li>
-        <li><a routerLink="/marketplace" (click)="toggleMenu()">Marketplace</a></li>
-        <li><a routerLink="/contato" (click)="toggleMenu()">Contato</a></li>
-    </ul>
+  <div class="side-menu-header">
+    <button id="close-menu-btn" (click)="toggleMenu()">
+      <i class="fa-solid fa-times"></i>
+    </button>
+  </div>
+  <ul class="nav-links">
+    <li><a routerLink="/" (click)="toggleMenu()">Início</a></li>
+    <li><a routerLink="/marketplace" (click)="toggleMenu()">Marketplace</a></li>
+    <li><a routerLink="/contato" (click)="toggleMenu()">Contato</a></li>
+  </ul>
 </nav>
 <div id="menu-overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>
 
@@ -53,13 +53,22 @@
       <div>
         <h3 class="modal-title">Acesse sua Conta</h3>
         <form id="login-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          @if (loginError) {
+          <p class="login-error-text">{{ loginError }}</p>
+          }
           <div class="mb-4">
             <label for="login-username">Usuário:</label>
             <input type="text" id="login-username" class="lego-input" formControlName="username">
           </div>
           <div class="mb-6">
             <label for="login-password">Senha:</label>
-            <input type="password" id="login-password" class="lego-input" formControlName="password">
+            <div class="password-wrapper">
+              <input [type]="loginPasswordVisible ? 'text' : 'password'" id="login-password" class="lego-input" formControlName="password">
+              <button type="button" class="toggle-password-btn" (click)="toggleLoginPasswordVisibility()" title="Mostrar/Esconder Senha">
+                <!-- LÓGICA DO ÍCONE CORRIGIDA -->
+                <i [class]="loginPasswordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+              </button>
+            </div>
           </div>
           <div class="form-actions">
             <button type="submit" class="lego-btn btn-login" [disabled]="loginForm.invalid">Entrar</button>
@@ -78,18 +87,29 @@
           <div class="mb-4">
             <label for="register-email">Email:</label>
             <input type="email" id="register-email" class="lego-input" formControlName="email">
-            <!-- NOVO: Mensagem de erro para o email -->
             @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)) {
-              <p class="error-text">Por favor, insira um email válido.</p>
+            <p class="error-text">Por favor, insira um email válido.</p>
             }
           </div>
           <div class="mb-4">
             <label for="register-password">Senha (mín. 6 caracteres):</label>
-            <input type="password" id="register-password" class="lego-input" formControlName="password">
+            <div class="password-wrapper">
+              <input [type]="registerPasswordVisible ? 'text' : 'password'" id="register-password" class="lego-input" formControlName="password">
+              <button type="button" class="toggle-password-btn" (click)="toggleRegisterPasswordVisibility()" title="Mostrar/Esconder Senha">
+                <!-- LÓGICA DO ÍCONE CORRIGIDA -->
+                <i [class]="registerPasswordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+              </button>
+            </div>
           </div>
           <div class="mb-6">
             <label for="confirm-password">Confirmar Senha:</label>
-            <input type="password" id="confirm-password" class="lego-input" formControlName="confirmPassword">
+            <div class="password-wrapper">
+              <input [type]="registerConfirmPasswordVisible ? 'text' : 'password'" id="confirm-password" class="lego-input" formControlName="confirmPassword">
+              <button type="button" class="toggle-password-btn" (click)="toggleRegisterConfirmPasswordVisibility()" title="Mostrar/Esconder Senha">
+                <!-- LÓGICA DO ÍCONE CORRIGIDA E ÍCONE DUPLICADO REMOVIDO -->
+                <i [class]="registerConfirmPasswordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+              </button>
+            </div>
             @if (registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched) {
             <p class="error-text">As senhas não coincidem.</p>
             }
@@ -112,37 +132,37 @@
 
 @if (isCartModalOpen) {
 <div id="cart-modal">
-    <div id="cart-modal-overlay" class="modal-overlay" (click)="closeCartModal()"></div>
-    <div class="modal-container">
-        <div class="cart-header">
-            <h2 class="modal-title">Seu Carrinho</h2>
-            <button class="cart-close-btn" (click)="closeCartModal()">&times;</button>
-        </div>
-        <div class="cart-items-container">
-            @for(item of cartItems; track item.product.id) {
-            <div class="cart-item">
-                <img [src]="item.product.imgCar" [alt]="item.product.name" class="cart-item-img">
-                <div class="cart-item-info">
-                    <h4>{{ item.product.name }}</h4>
-                    <p>R$ {{ item.product.price.toFixed(2) }}</p>
-                </div>
-                <div class="cart-item-quantity">
-                    <button (click)="updateCartItemQuantity(item.product.id, -1)">-</button>
-                    <span>{{ item.quantity }}</span>
-                    <button (click)="updateCartItemQuantity(item.product.id, 1)">+</button>
-                </div>
-            </div>
-            } @empty {
-            <p class="cart-empty-text">Seu carrinho está vazio.</p>
-            }
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span>R$ {{ cartTotal.toFixed(2) }}</span>
-            </div>
-            <button class="lego-btn checkout-btn" (click)="checkout()">Finalizar Compra</button>
-        </div>
+  <div id="cart-modal-overlay" class="modal-overlay" (click)="closeCartModal()"></div>
+  <div class="modal-container">
+    <div class="cart-header">
+      <h2 class="modal-title">Seu Carrinho</h2>
+      <button class="cart-close-btn" (click)="closeCartModal()">&times;</button>
     </div>
+    <div class="cart-items-container">
+      @for(item of cartItems; track item.product.id) {
+      <div class="cart-item">
+        <img [src]="item.product.imgCar" [alt]="item.product.name" class="cart-item-img">
+        <div class="cart-item-info">
+          <h4>{{ item.product.name }}</h4>
+          <p>R$ {{ item.product.price.toFixed(2) }}</p>
+        </div>
+        <div class="cart-item-quantity">
+          <button (click)="updateCartItemQuantity(item.product.id, -1)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="updateCartItemQuantity(item.product.id, 1)">+</button>
+        </div>
+      </div>
+      } @empty {
+      <p class="cart-empty-text">Seu carrinho está vazio.</p>
+      }
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span>R$ {{ cartTotal.toFixed(2) }}</span>
+      </div>
+      <button class="lego-btn checkout-btn" (click)="checkout()">Finalizar Compra</button>
+    </div>
+  </div>
 </div>
 }

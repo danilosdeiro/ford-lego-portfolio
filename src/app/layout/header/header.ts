@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { AuthService } from '../../core/services/auth';
 import { CartService, CartItem } from '../../core/services/cart';
 import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -19,17 +19,20 @@ export class Header implements OnInit, OnDestroy {
   isLoginModalOpen = false;
   isCartModalOpen = false;
   showLoginForm = true;
-  themeIconClass = 'fa-solid fa-sun'; // <-- NOVA PROPRIEDADE PARA O ÍCONE
-  private currentTheme = 'dark';
+  themeIconClass = 'fa-solid fa-sun';
   currentUser: any = null;
   cartItemCount = 0;
   cartItems: CartItem[] = [];
   isMarketplacePage = false;
+  loginError: string | null = null;
+  cartUpdateIndicator = false;
   private subscriptions = new Subscription();
+  loginPasswordVisible = false;
+  registerPasswordVisible = false;
+  registerConfirmPasswordVisible = false;
 
   loginForm: FormGroup;
   registerForm: FormGroup;
-
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -53,20 +56,22 @@ export class Header implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     if (savedTheme === 'light-mode') {
       this.document.body.classList.add('light-mode');
-      this.themeIconClass = 'fa-solid fa-moon'; // Define o ícone inicial correto
+      this.themeIconClass = 'fa-solid fa-moon';
     } else {
       this.document.body.classList.remove('light-mode');
-      this.themeIconClass = 'fa-solid fa-sun'; // Define o ícone inicial correto
+      this.themeIconClass = 'fa-solid fa-sun';
     }
 
     this.subscriptions.add(this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     }));
 
-    this.subscriptions.add(this.cartService.cartItems$.subscribe(items => {
+    this.subscriptions.add(this.cartService.cartItems$.pipe(
+      tap(() => this.triggerCartAnimation())
+    ).subscribe(items => {
       this.cartItems = items;
       this.cartItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
     }));
@@ -90,29 +95,57 @@ const savedTheme = localStorage.getItem('theme') || 'dark';
   }
 
   onLogin() {
+    this.loginError = null;
     if (this.loginForm.valid) {
       if (this.authService.login(this.loginForm.value)) {
         this.closeLoginModal();
+      } else {
+        this.loginError = 'Usuário ou senha inválidos.';
       }
-      this.loginForm.reset();
     }
   }
 
+  // --- MÉTODO ATUALIZADO ---
   onRegister() {
     if (this.registerForm.valid) {
-      const { confirmPassword, ...userData } = this.registerForm.value;
+      const { confirmPassword, lgpdConsent, ...userData } = this.registerForm.value;
+      
       if (this.authService.register(userData)) {
-        this.toggleForm();
+        // Se o registro foi bem-sucedido, faz o login automaticamente
+        const loginCredentials = {
+          username: userData.username,
+          password: userData.password
+        };
+        if (this.authService.login(loginCredentials)) {
+          // Se o login automático também foi bem-sucedido, fecha o modal
+          this.closeLoginModal();
+        }
+      } else {
+        // Se o registro falhou (usuário já existe), mostra um alerta
+        alert('Usuário ou email já cadastrado!');
       }
+      
       this.registerForm.reset();
     }
+  }
+
+  toggleLoginPasswordVisibility() {
+    this.loginPasswordVisible = !this.loginPasswordVisible;
+  }
+
+  toggleRegisterPasswordVisibility() {
+    this.registerPasswordVisible = !this.registerPasswordVisible;
+  }
+
+  toggleRegisterConfirmPasswordVisibility() {
+    this.registerConfirmPasswordVisible = !this.registerConfirmPasswordVisible;
   }
   
   logout() { this.authService.logout(); }
   toggleMenu() { this.isMenuOpen = !this.isMenuOpen; }
-  openLoginModal() { this.isLoginModalOpen = true; this.showLoginForm = true; }
+  openLoginModal() { this.isLoginModalOpen = true; this.showLoginForm = true; this.loginError = null; }
   closeLoginModal() { this.isLoginModalOpen = false; }
-  toggleForm() { this.showLoginForm = !this.showLoginForm; }
+  toggleForm() { this.showLoginForm = !this.showLoginForm; this.loginError = null; }
   openCartModal() { this.isCartModalOpen = true; }
   closeCartModal() { this.isCartModalOpen = false; }
 
@@ -134,15 +167,23 @@ const savedTheme = localStorage.getItem('theme') || 'dark';
     }
   }
 
+  triggerCartAnimation() {
+    if (this.cartItemCount > 0) {
+      this.cartUpdateIndicator = true;
+      setTimeout(() => {
+        this.cartUpdateIndicator = false;
+      }, 500);
+    }
+  }
+
   toggleTheme() {
     this.document.body.classList.toggle('light-mode');
-
     if (this.document.body.classList.contains('light-mode')) {
       localStorage.setItem('theme', 'light-mode');
-      this.themeIconClass = 'fa-solid fa-moon'; // Alterna para lua
+      this.themeIconClass = 'fa-solid fa-moon';
     } else {
       localStorage.setItem('theme', 'dark');
-      this.themeIconClass = 'fa-solid fa-sun'; // Alterna para sol
+      this.themeIconClass = 'fa-solid fa-sun';
     }
   }
 }
