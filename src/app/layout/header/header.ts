@@ -27,12 +27,14 @@ export class Header implements OnInit, OnDestroy {
   loginError: string | null = null;
   cartUpdateIndicator = false;
   private subscriptions = new Subscription();
-  loginPasswordVisible = false;
-  registerPasswordVisible = false;
-  registerConfirmPasswordVisible = false;
 
   loginForm: FormGroup;
   registerForm: FormGroup;
+
+  // --- Propriedades para o controle de visibilidade da senha ---
+  loginPasswordVisible = false;
+  registerPasswordVisible = false;
+  registerConfirmPasswordVisible = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -119,21 +121,28 @@ export class Header implements OnInit, OnDestroy {
       } else {
         alert('Usuário ou email já cadastrado!');
       }
-
       this.registerForm.reset();
     }
   }
-
-  toggleLoginPasswordVisibility() {
-    this.loginPasswordVisible = !this.loginPasswordVisible;
-  }
-
-  toggleRegisterPasswordVisibility() {
-    this.registerPasswordVisible = !this.registerPasswordVisible;
-  }
-
-  toggleRegisterConfirmPasswordVisibility() {
-    this.registerConfirmPasswordVisible = !this.registerConfirmPasswordVisible;
+  
+  // --- MÉTODO CHECKOUT ATUALIZADO ---
+  checkout() {
+    // 1. Verifica se existe um usuário logado
+    if (this.currentUser) {
+      // Se SIM, procede com a compra
+      if(this.cartItems.length > 0) {
+        alert('Compra finalizada com sucesso! (Simulação)');
+        this.cartService.clearCart();
+        this.closeCartModal();
+      } else {
+        alert('Seu carrinho está vazio!');
+      }
+    } else {
+      // Se NÃO, guia o usuário para o login
+      alert('Você precisa estar logado para finalizar a compra.');
+      this.closeCartModal(); // Fecha o modal do carrinho
+      this.openLoginModal(); // Abre o modal de login
+    }
   }
 
   logout() { this.authService.logout(); }
@@ -150,16 +159,6 @@ export class Header implements OnInit, OnDestroy {
 
   get cartTotal(): number {
     return this.cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-  }
-
-  checkout() {
-    if (this.cartItems.length > 0) {
-      alert('Compra finalizada com sucesso! (Simulação)');
-      this.cartService.clearCart();
-      this.closeCartModal();
-    } else {
-      alert('Seu carrinho está vazio!');
-    }
   }
 
   triggerCartAnimation() {
@@ -181,4 +180,8 @@ export class Header implements OnInit, OnDestroy {
       this.themeIconClass = 'fa-solid fa-sun';
     }
   }
+
+  toggleLoginPasswordVisibility() { this.loginPasswordVisible = !this.loginPasswordVisible; }
+  toggleRegisterPasswordVisibility() { this.registerPasswordVisible = !this.registerPasswordVisible; }
+  toggleRegisterConfirmPasswordVisibility() { this.registerConfirmPasswordVisible = !this.registerConfirmPasswordVisible; }
 }
