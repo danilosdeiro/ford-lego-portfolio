@@ -1,59 +1,82 @@
-# FordLegoPortfolio
+<h1>🚗 Ford LEGO: Construído para Durar, Reconstruído para Brincar</h1>
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.2.
+<h2>🚀 Sobre o Projeto</h2>
+Ford LEGO é uma Single Page Application (SPA) desenvolvida como projeto final do curso Ford Enter.  <br>
+O objetivo foi recriar a identidade visual de uma marca icônica, a Ford, sob uma ótica criativa e lúdica inspirada no universo LEGO. <br>
+Este projeto não é apenas uma interface estática, mas uma aplicação web completa e interativa, que demonstra o uso de conceitos modernos de desenvolvimento front-end, desde a arquitetura de componentes até o gerenciamento de estado e a conformidade com requisitos legais como a LGPD.
 
-## Development server
+<h2>✨ Funcionalidades Implementadas:</h2>
+O projeto conta com um conjunto completo de funcionalidades que simulam uma experiência de e-commerce e portal de marca:
 
-To start a local development server, run:
+<h3>🎨 Tema Dinâmico: 
+  Alternância entre os modos claro (Light) e escuro (Dark), com a preferência salva no navegador.</h3>
 
-```bash
-ng serve
-```
+<h3>🎠 Carrossel Automático: 
+  Slides de destaque na página inicial que rotacionam a cada 4 segundos.</h3>
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+<h3>🛒 Marketplace Interativo:</h3>
 
-## Code scaffolding
+  Grade de produtos responsiva.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+  Efeito de "transformação" da imagem do produto ao passar o mouse.
 
-```bash
-ng generate component component-name
-```
+  Controle de quantidade para cada item.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+<h3>🛒 Sistema de Carrinho de Compras:</h3>
 
-```bash
-ng generate --help
-```
+  Adição de produtos ao carrinho com feedback visual instantâneo.
 
-## Building
+  Modal de carrinho para gerenciamento dos itens e visualização do total.
 
-To build the project run:
+  Atualização de quantidade e remoção de itens.
 
-```bash
-ng build
-```
+<h3>👤 Autenticação de Usuários:</h3>
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+  Sistema completo de Cadastro e Login.
 
-## Running unit tests
+  Simulação de banco de dados com localStorage.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+  Login automático após o cadastro para uma melhor experiência do usuário.
 
-```bash
-ng test
-```
+  LGPD: Campo de consentimento explícito e obrigatório no cadastro.
 
-## Running end-to-end tests
+<h3>🔒 Segurança e Usabilidade:</h3>
 
-For end-to-end (e2e) testing, run:
+  Validação de formulários em tempo real (e-mail, senhas, campos obrigatórios).
 
-```bash
-ng e2e
-```
+  Botão para revelar/esconder a senha nos campos de input.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+<h3>📱 Design Responsivo: Interface totalmente adaptável para desktops, tablets e celulares.
 
-## Additional Resources
+<h2>🛠️ Tecnologias Utilizadas:</h2>
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este projeto foi construído com as ferramentas mais modernas do ecossistema front-end:
+
+Angular (v20+): Framework principal, utilizando a arquitetura de Standalone Components.
+
+TypeScript: Linguagem base para adicionar tipagem e robustez ao JavaScript.
+
+RxJS: Para programação reativa, especialmente no gerenciamento do estado do carrinho e do usuário logado.
+
+CSS Moderno: Uso de Flexbox, Grid Layout, Variáveis CSS e animações para criar um layout complexo e responsivo.
+
+Git & GitHub: Para versionamento de código e hospedagem com GitHub Pages.
+
+
+<h1>📊 Status do Projeto
+Status: Concluído ✔️</h1>
+
+Este projeto foi finalizado em Julho de 2025 como requisito para a conclusão do curso Ford<Enter>.
+
+<br>
+<div align="center">
+<h3 align="center">Feito por Danilo Souza Deiró</h3>
+<p align="center">
+<a href="https://github.com/danilosdeiro" target="_blank">
+<img src="https://img.shields.io/badge/-GitHub-%23181717?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+</a>
+<a href="https://www.linkedin.com/in/danilosdeiro/" target="_blank">
+<img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank">
+</a>
+</p>
+</div>
