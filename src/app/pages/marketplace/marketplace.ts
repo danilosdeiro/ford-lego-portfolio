@@ -25,8 +25,8 @@ export class Marketplace {
     {
       id: 2, name: 'Ranger Raptor', price: 799.99,
       pieceCount: 1379,
-      imgCar: 'assets/images/raptormp.jpeg',
-      imgBox: 'assets/images/raptorbox.jpg'
+      imgCar: 'assets/images/rangerraptor.png',
+      imgBox: 'assets/images/rangerraptorbox.png'
     },
     {
       id: 3, name: 'Bronco Sport', price: 699.99,
