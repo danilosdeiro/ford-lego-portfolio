@@ -30,8 +30,6 @@ export class Header implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
-
-  // --- Propriedades para o controle de visibilidade da senha ---
   loginPasswordVisible = false;
   registerPasswordVisible = false;
   registerConfirmPasswordVisible = false;
@@ -125,23 +123,20 @@ export class Header implements OnInit, OnDestroy {
     }
   }
   
-  // --- MÉTODO CHECKOUT ATUALIZADO ---
   checkout() {
-    // 1. Verifica se existe um usuário logado
     if (this.currentUser) {
-      // Se SIM, procede com a compra
+
       if(this.cartItems.length > 0) {
-        alert('Compra finalizada com sucesso! (Simulação)');
+        alert('Sua compra foi finalizada com sucesso!');
         this.cartService.clearCart();
         this.closeCartModal();
       } else {
         alert('Seu carrinho está vazio!');
       }
     } else {
-      // Se NÃO, guia o usuário para o login
       alert('Você precisa estar logado para finalizar a compra.');
-      this.closeCartModal(); // Fecha o modal do carrinho
-      this.openLoginModal(); // Abre o modal de login
+      this.closeCartModal();
+      this.openLoginModal();
     }
   }
 
