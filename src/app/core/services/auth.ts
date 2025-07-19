@@ -9,7 +9,7 @@ export class AuthService {
   private users: any[] = [];
   private storageKeyUsers = 'legoFordUsers';
   private storageKeyRemembered = 'legoFordRememberedUser';
-
+  private storageKeySession = 'legoFordActiveUser';
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -20,6 +20,10 @@ export class AuthService {
     } else {
       this.users = [{ username: 'admin', email: 'admin@admin.com', password: 'admin123' }];
       this.saveUsersToLocalStorage();
+    }
+    const sessionUser = sessionStorage.getItem(this.storageKeySession);
+    if (sessionUser) {
+      this.currentUserSubject.next(JSON.parse(sessionUser));
     }
   }
 
@@ -46,7 +50,8 @@ export class AuthService {
     if (user) {
       this.currentUserSubject.next(user);
       this.notificationService.show(`Bem-vindo(a), ${user.username}!`);
-      
+      sessionStorage.setItem(this.storageKeySession, JSON.stringify(user));
+
       if (rememberMe) {
         localStorage.setItem(this.storageKeyRemembered, user.username);
       } else {
