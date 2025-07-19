@@ -37,7 +37,7 @@ export class AuthService {
     }
     this.users.push(userData);
     this.saveUsersToLocalStorage();
-    this.notificationService.show('Cadastro realizado com sucesso!');
+    this.notificationService.show('Seu cadastro foi realizado com sucesso!');
     return true;
   }
 
@@ -45,7 +45,7 @@ export class AuthService {
     const user = this.users.find(u => u.username === credentials.username && u.password === credentials.password);
     if (user) {
       this.currentUserSubject.next(user);
-      this.notificationService.show(`Bem-vindo, ${user.username}!`);
+      this.notificationService.show(`Bem-vindo(a), ${user.username}!`);
       
       if (rememberMe) {
         localStorage.setItem(this.storageKeyRemembered, user.username);

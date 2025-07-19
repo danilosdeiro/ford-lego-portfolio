@@ -20,7 +20,7 @@
         }
       </div>
       @if (currentUser) {
-      <div class="welcome-message">Olá, {{ currentUser.username }}</div>
+      <div class="welcome-message">Olá, {{ formattedUsername }}</div>
       <button class="lego-btn btn-logout" (click)="logout()">Sair</button>
       } @else {
       <button id="login-btn" class="lego-btn" (click)="openLoginModal()">Login</button>

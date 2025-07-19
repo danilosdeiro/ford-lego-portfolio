@@ -102,8 +102,18 @@ export class Header implements OnInit, OnDestroy {
     }));
   }
 
+  
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  get formattedUsername(): string {
+    if (this.currentUser && this.currentUser.username) {
+      const username = this.currentUser.username;
+      // Pega a primeira letra, a torna maiúscula, e junta com o resto do nome
+      return username.charAt(0).toUpperCase() + username.slice(1);
+    }
+    return '';
   }
 
   passwordMatchValidator(form: FormGroup) {
