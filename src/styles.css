@@ -27,6 +27,10 @@
 
 html {
     background-color: var(--bg-secondary);
+    background-image:
+        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
 body {
@@ -35,11 +39,6 @@ body {
     image-rendering: pixelated;
     transition: background-color 0.3s, color 0.3s;
     margin: 0;
-    background-color: var(--bg-secondary);
-    background-image:
-        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
-    background-size: 20px 20px;
     min-height: 100vh;
 }
 
