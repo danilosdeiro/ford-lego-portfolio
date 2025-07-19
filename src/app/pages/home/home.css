@@ -21,16 +21,28 @@
   line-height: 1.5;
 }
 
+.carousel-section-container {
+  position: relative;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
 .carousel-wrapper {
   position: relative;
   max-width: 56rem;
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
 }
 
 .carousel-slide {
-  display: none;
-  animation: fade 0.5s ease-in-out;
+  flex: 0 0 100%;
+  box-sizing: border-box;
 }
 
 .carousel-slide.active {

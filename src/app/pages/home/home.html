@@ -2,19 +2,23 @@
   <h1 class="main-title">Ford. Construído para durar,<br><span class="play-text">reconstruído para brincar.</span></h1>
   <p class="main-subtitle">A força e a tradição da Ford encontram a criatividade sem limites de LEGO.</p>
 
-  <div class="carousel-wrapper">
-    <div class="carousel-container">
-      @for (car of cars; track $index) {
-        <div class="carousel-slide" [class.active]="$index === currentSlide">
-          <div class="car-card">
-            <img [src]="car.imgSrc" [alt]="'Imagem do ' + car.title">
-            <div class="card-content">
-              <h3>{{ car.title }}</h3>
-              <p>{{ car.description }}</p>
+  <div class="carousel-section-container">
+    <div class="carousel-wrapper">
+      <div class="carousel-container" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
+        
+        @for (car of cars; track $index) {
+          <div class="carousel-slide">
+            <div class="car-card">
+              <img [src]="car.imgSrc" [alt]="'Imagem do ' + car.title">
+              <div class="card-content">
+                <h3>{{ car.title }}</h3>
+                <p>{{ car.description }}</p>
+              </div>
             </div>
           </div>
-        </div>
-      }
+        }
+
+      </div>
     </div>
 
     <button class="lego-arrow-btn prev" (click)="manualChange('prev')" title="Anterior">
