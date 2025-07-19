@@ -6,21 +6,23 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AudioService {
   private audio = new Audio();
+  private isAudioLoaded = false;
   private isPlayingSubject = new BehaviorSubject<boolean>(false);
   public isPlaying$ = this.isPlayingSubject.asObservable();
 
-  constructor() {
-    this.audio.src = 'assets/music/theme.mp3'; // Caminho para a sua música
-    this.audio.loop = true; // Faz a música repetir
-    this.audio.volume = 0.3; // Começa com um volume mais baixo
-  }
+  constructor() { }
 
   togglePlayPause() {
+    if (!this.isAudioLoaded) {
+      this.audio.src = 'assets/music/theme.mp3';
+      this.audio.loop = true;
+      this.audio.volume = 0.3;
+      this.isAudioLoaded = true;
+    }
+
     if (this.audio.paused) {
       this.audio.play().catch(error => {
-        // O navegador pode bloquear o autoplay, isso é normal.
-        // O usuário precisa interagir com a página primeiro.
-        console.log('Playback foi impedido pelo navegador. O usuário precisa clicar na página.');
+        console.log('Playback foi impedido pelo navegador. O usuário precisa interagir com a página.');
       });
       this.isPlayingSubject.next(true);
     } else {

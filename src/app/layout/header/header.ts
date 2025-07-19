@@ -29,13 +29,15 @@ export class Header implements OnInit, OnDestroy {
   isMarketplacePage = false;
   loginError: string | null = null;
   cartUpdateIndicator = false;
+  isPlayingMusic = false;
   private subscriptions = new Subscription();
+
   loginForm: FormGroup;
   registerForm: FormGroup;
+
   loginPasswordVisible = false;
   registerPasswordVisible = false;
   registerConfirmPasswordVisible = false;
-  isPlayingMusic = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -43,8 +45,8 @@ export class Header implements OnInit, OnDestroy {
     private authService: AuthService,
     private cartService: CartService,
     private notificationService: NotificationService,
-    private router: Router,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -62,18 +64,18 @@ export class Header implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    if (savedTheme === 'light-mode') {
-      this.document.body.classList.add('light-mode');
-      this.themeIconClass = 'fa-solid fa-moon';
-    } else {
-      this.document.body.classList.remove('light-mode');
-      this.themeIconClass = 'fa-solid fa-sun';
-    }
-
     const rememberedUser = this.authService.getRememberedUser();
     if (rememberedUser) {
       this.loginForm.patchValue({ username: rememberedUser, rememberMe: true });
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light-mode') {
+      this.document.documentElement.classList.add('light-mode');
+      this.themeIconClass = 'fa-solid fa-moon';
+    } else {
+      this.document.documentElement.classList.remove('light-mode');
+      this.themeIconClass = 'fa-solid fa-sun';
     }
 
     this.subscriptions.add(this.authService.currentUser$.subscribe(user => {
@@ -94,10 +96,11 @@ export class Header implements OnInit, OnDestroy {
         this.isMarketplacePage = event.urlAfterRedirects === '/marketplace';
       })
     );
+    
     this.subscriptions.add(this.audioService.isPlaying$.subscribe(isPlaying => {
       this.isPlayingMusic = isPlaying;
     }));
-  } // termino da musica
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -136,32 +139,14 @@ export class Header implements OnInit, OnDestroy {
       }
     }
   }
-
-  checkout() {
-    if (this.currentUser) {
-      if (this.cartItems.length > 0) {
-        this.notificationService.show('Compra finalizada com sucesso!');
-        this.cartService.clearCart();
-        this.closeCartModal();
-      } else {
-        this.notificationService.show('Seu carrinho está vazio!', 'error');
-      }
-    } else {
-      this.notificationService.show('Você precisa estar logado para finalizar a compra.', 'error');
-      this.closeCartModal();
-      this.openLoginModal();
-    }
-  }
-
-  logout() {
-    this.isLogoutConfirmOpen = true;
-  }
-
+  
+  logout() { this.isLogoutConfirmOpen = true; }
   confirmLogout() {
     this.authService.logout();
     this.isLogoutConfirmOpen = false;
     this.notificationService.show('Você saiu com sucesso.');
   }
+
   toggleMenu() { this.isMenuOpen = !this.isMenuOpen; }
   openLoginModal() { this.isLoginModalOpen = true; this.showLoginForm = true; this.loginError = null; }
   closeLoginModal() { this.isLoginModalOpen = false; }
@@ -178,6 +163,22 @@ export class Header implements OnInit, OnDestroy {
     return this.cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
   }
 
+  checkout() {
+    if (this.currentUser) {
+      if(this.cartItems.length > 0) {
+        this.notificationService.show('Compra finalizada com sucesso!');
+        this.cartService.clearCart();
+        this.closeCartModal();
+      } else {
+        this.notificationService.show('Seu carrinho está vazio!', 'error');
+      }
+    } else {
+      this.notificationService.show('Você precisa estar logado para finalizar a compra.', 'error');
+      this.closeCartModal();
+      this.openLoginModal();
+    }
+  }
+
   triggerCartAnimation() {
     if (this.cartItemCount > 0) {
       this.cartUpdateIndicator = true;
@@ -188,8 +189,8 @@ export class Header implements OnInit, OnDestroy {
   }
 
   toggleTheme() {
-    this.document.body.classList.toggle('light-mode');
-    if (this.document.body.classList.contains('light-mode')) {
+    this.document.documentElement.classList.toggle('light-mode');
+    if (this.document.documentElement.classList.contains('light-mode')) {
       localStorage.setItem('theme', 'light-mode');
       this.themeIconClass = 'fa-solid fa-moon';
     } else {
@@ -198,10 +199,8 @@ export class Header implements OnInit, OnDestroy {
     }
   }
 
+  toggleMusic() { this.audioService.togglePlayPause(); }
   toggleLoginPasswordVisibility() { this.loginPasswordVisible = !this.loginPasswordVisible; }
   toggleRegisterPasswordVisibility() { this.registerPasswordVisible = !this.registerPasswordVisible; }
   toggleRegisterConfirmPasswordVisibility() { this.registerConfirmPasswordVisible = !this.registerConfirmPasswordVisible; }
-  toggleMusic() {
-    this.audioService.togglePlayPause();
-  }
 }
