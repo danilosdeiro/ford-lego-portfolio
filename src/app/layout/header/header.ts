@@ -7,6 +7,7 @@ import { CartService, CartItem } from '../../core/services/cart';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { NotificationService } from '../../core/services/notification';
+import { AudioService } from '../../core/services/audio';
 
 @Component({
   selector: 'app-header',
@@ -29,13 +30,12 @@ export class Header implements OnInit, OnDestroy {
   loginError: string | null = null;
   cartUpdateIndicator = false;
   private subscriptions = new Subscription();
-
   loginForm: FormGroup;
   registerForm: FormGroup;
-
   loginPasswordVisible = false;
   registerPasswordVisible = false;
   registerConfirmPasswordVisible = false;
+  isPlayingMusic = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -43,7 +43,8 @@ export class Header implements OnInit, OnDestroy {
     private authService: AuthService,
     private cartService: CartService,
     private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
+    private audioService: AudioService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -93,7 +94,10 @@ export class Header implements OnInit, OnDestroy {
         this.isMarketplacePage = event.urlAfterRedirects === '/marketplace';
       })
     );
-  }
+    this.subscriptions.add(this.audioService.isPlaying$.subscribe(isPlaying => {
+      this.isPlayingMusic = isPlaying;
+    }));
+  } // termino da musica
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -197,4 +201,7 @@ export class Header implements OnInit, OnDestroy {
   toggleLoginPasswordVisibility() { this.loginPasswordVisible = !this.loginPasswordVisible; }
   toggleRegisterPasswordVisibility() { this.registerPasswordVisible = !this.registerPasswordVisible; }
   toggleRegisterConfirmPasswordVisibility() { this.registerConfirmPasswordVisible = !this.registerConfirmPasswordVisible; }
+  toggleMusic() {
+    this.audioService.togglePlayPause();
+  }
 }

@@ -4,6 +4,11 @@
       F<span>O</span>RD
     </a>
     <div class="header-actions">
+      <!-- Musica -->
+      <button id="music-toggle" title="Tocar/Pausar Música" (click)="toggleMusic()">
+        <i [class]="isPlayingMusic ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark'"></i>
+      </button> 
+      <!-- Musica -->
       <button id="theme-toggle" title="Mudar Tema" (click)="toggleTheme()">
         <i [class]="themeIconClass"></i>
       </button>
