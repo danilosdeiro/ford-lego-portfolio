@@ -25,6 +25,10 @@
     --grid-line-color: rgba(0, 0, 0, 0.05);
 }
 
+html, body {
+    background-color: var(--bg-primary);
+}
+
 body {
     font-family: 'Press Start 2P', cursive;
     background-color: var(--bg-primary);
@@ -34,7 +38,6 @@ body {
     margin: 0;
 }
 
-/* --- ESTILOS DO BACKGROUND --- */
 .main-background {
     background-color: var(--bg-secondary);
     background-image:
@@ -62,15 +65,15 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 50; /* Garante que o fundo fique acima do site, mas abaixo do modal */
+  z-index: 50;
 }
 
 .modal-container {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* O truque para centralizar perfeitamente */
-  z-index: 60; /* Fica na frente de tudo */
+  transform: translate(-50%, -50%);
+  z-index: 60;
   
   background-color: var(--bg-secondary);
   border: 4px solid var(--border-color);
@@ -88,24 +91,23 @@ body {
   transition: background-color 0.2s;
 }
 
-/* Efeito ao passar o mouse em abas não ativas */
 .modal-tab:not(.active):hover {
-    background-color: #00224D; /* Um pouco mais claro que o bg-secondary */
+    background-color: #00224D;
 }
 
-/* Estilo da aba ativa, que já tínhamos */
+
 .modal-tab.active {
   background-color: var(--bg-secondary);
   border-bottom-color: var(--accent-yellow);
 }
 app-header {
-  position: relative; /* Necessário para que o z-index funcione neles */
-  z-index: 2; /* Coloca o conteúdo na camada 2, a mais alta */
+  position: relative;
+  z-index: 2;
 }
 
 main, app-footer {
-  position: relative; /* Necessário para que o z-index funcione neles */
-  z-index: 1; /* Coloca o conteúdo na camada 2, a mais alta */
+  position: relative;
+  z-index: 1;
 }
 
 .lego-brick {
