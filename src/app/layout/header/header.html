@@ -119,7 +119,7 @@
                 class="lego-input" formControlName="confirmPassword">
               <button type="button" class="toggle-password-btn" (click)="toggleRegisterConfirmPasswordVisibility()"
                 title="Mostrar/Esconder Senha">
-                <i [class]="registerConfirmPasswordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+                <i [class]="registerConfirmPasswordVisible ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
               </button>
             </div>
             @if (registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched) {
