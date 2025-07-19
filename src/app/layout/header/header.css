@@ -403,6 +403,36 @@
 }
 .checkout-btn::before, .checkout-btn::after { content: none; }
 
+.remember-me {
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.confirm-modal {
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.confirm-text {
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.btn-cancel {
+  background-color: #6b7280;
+}
+.btn-cancel:hover {
+  background-color: #4b5563;
+}
+
+.btn-confirm-logout {
+  background-color: #dc2626;
+}
+.btn-confirm-logout:hover {
+  background-color: #b91c1c;
+}
+
 @media (max-width: 480px) {
   .header-main {
     padding: 0.75rem;

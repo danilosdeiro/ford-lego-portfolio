@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { RouterModule, NavigationEnd, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Auth } from '../../core/services/auth';
+import { AuthService } from '../../core/services/auth';
 import { CartService, CartItem } from '../../core/services/cart';
 import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
+import { NotificationService } from '../../core/services/notification';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,7 @@ export class Header implements OnInit, OnDestroy {
   isMenuOpen = false;
   isLoginModalOpen = false;
   isCartModalOpen = false;
+  isLogoutConfirmOpen = false;
   showLoginForm = true;
   themeIconClass = 'fa-solid fa-sun';
   currentUser: any = null;
@@ -30,6 +32,7 @@ export class Header implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
+
   loginPasswordVisible = false;
   registerPasswordVisible = false;
   registerConfirmPasswordVisible = false;
@@ -37,13 +40,15 @@ export class Header implements OnInit, OnDestroy {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
-    private authService: Auth,
+    private authService: AuthService,
     private cartService: CartService,
+    private notificationService: NotificationService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      rememberMe: [false]
     });
 
     this.registerForm = this.fb.group({
@@ -63,6 +68,11 @@ export class Header implements OnInit, OnDestroy {
     } else {
       this.document.body.classList.remove('light-mode');
       this.themeIconClass = 'fa-solid fa-sun';
+    }
+
+    const rememberedUser = this.authService.getRememberedUser();
+    if (rememberedUser) {
+      this.loginForm.patchValue({ username: rememberedUser, rememberMe: true });
     }
 
     this.subscriptions.add(this.authService.currentUser$.subscribe(user => {
@@ -97,10 +107,11 @@ export class Header implements OnInit, OnDestroy {
   onLogin() {
     this.loginError = null;
     if (this.loginForm.valid) {
-      if (this.authService.login(this.loginForm.value)) {
-        this.closeLoginModal();
-      } else {
+      const { rememberMe, ...credentials } = this.loginForm.value;
+      if (!this.authService.login(credentials, rememberMe)) {
         this.loginError = 'Usuário ou senha inválidos.';
+      } else {
+        this.closeLoginModal();
       }
     }
   }
@@ -113,40 +124,47 @@ export class Header implements OnInit, OnDestroy {
           username: userData.username,
           password: userData.password
         };
-        if (this.authService.login(loginCredentials)) {
+        if (this.authService.login(loginCredentials, false)) {
           this.closeLoginModal();
         }
       } else {
-        alert('Usuário ou email já cadastrado!');
+        this.notificationService.show('Usuário ou email já cadastrado!', 'error');
       }
-      this.registerForm.reset();
     }
   }
-  
+
   checkout() {
     if (this.currentUser) {
-
-      if(this.cartItems.length > 0) {
-        alert('Sua compra foi finalizada com sucesso!');
+      if (this.cartItems.length > 0) {
+        this.notificationService.show('Compra finalizada com sucesso!');
         this.cartService.clearCart();
         this.closeCartModal();
       } else {
-        alert('Seu carrinho está vazio!');
+        this.notificationService.show('Seu carrinho está vazio!', 'error');
       }
     } else {
-      alert('Você precisa estar logado para finalizar a compra.');
+      this.notificationService.show('Você precisa estar logado para finalizar a compra.', 'error');
       this.closeCartModal();
       this.openLoginModal();
     }
   }
 
-  logout() { this.authService.logout(); }
+  logout() {
+    this.isLogoutConfirmOpen = true;
+  }
+
+  confirmLogout() {
+    this.authService.logout();
+    this.isLogoutConfirmOpen = false;
+    this.notificationService.show('Você saiu com sucesso.');
+  }
   toggleMenu() { this.isMenuOpen = !this.isMenuOpen; }
   openLoginModal() { this.isLoginModalOpen = true; this.showLoginForm = true; this.loginError = null; }
   closeLoginModal() { this.isLoginModalOpen = false; }
   toggleForm() { this.showLoginForm = !this.showLoginForm; this.loginError = null; }
   openCartModal() { this.isCartModalOpen = true; }
   closeCartModal() { this.isCartModalOpen = false; }
+  closeLogoutConfirm() { this.isLogoutConfirmOpen = false; }
 
   updateCartItemQuantity(productId: number, change: number) {
     this.cartService.updateQuantity(productId, change);

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { NotificationService } from './notification';
 
 export interface Product {
   id: number;
@@ -20,7 +21,7 @@ export class CartService {
   private cartItems = new BehaviorSubject<CartItem[]>([]);
   public cartItems$ = this.cartItems.asObservable();
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
   addToCart(product: Product, quantity: number) {
     const currentItems = this.cartItems.getValue();
@@ -31,6 +32,7 @@ export class CartService {
       currentItems.push({ product, quantity });
     }
     this.cartItems.next([...currentItems]);
+    this.notificationService.show(`${quantity}x ${product.name} adicionado(s) ao carrinho!`);
   }
 
   updateQuantity(productId: number, change: number) {

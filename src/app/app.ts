@@ -3,11 +3,13 @@ import { DOCUMENT } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
+import { NotificationComponent } from './shared/components/notification/notification';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, Footer],
+  imports: [RouterOutlet, Header, Footer, NotificationComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

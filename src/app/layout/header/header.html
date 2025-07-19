@@ -7,21 +7,18 @@
       <button id="theme-toggle" title="Mudar Tema" (click)="toggleTheme()">
         <i [class]="themeIconClass"></i>
       </button>
-      <div id="cart-icon" [class.hidden]="!isMarketplacePage" title="Carrinho" (click)="openCartModal()" [class.updated]="cartUpdateIndicator">
+      <div id="cart-icon" [class.hidden]="!isMarketplacePage" title="Carrinho" (click)="openCartModal()"
+        [class.updated]="cartUpdateIndicator">
         <i class="fa-solid fa-shopping-cart"></i>
         @if(cartItemCount > 0) {
         <span id="cart-count">{{ cartItemCount }}</span>
         }
       </div>
       @if (currentUser) {
-      <div class="welcome-message">
-        Olá, {{ currentUser.username }}
-      </div>
+      <div class="welcome-message">Olá, {{ currentUser.username }}</div>
       <button class="lego-btn btn-logout" (click)="logout()">Sair</button>
       } @else {
-      <button id="login-btn" class="lego-btn" (click)="openLoginModal()">
-        Login
-      </button>
+      <button id="login-btn" class="lego-btn" (click)="openLoginModal()">Login</button>
       }
       <button id="menu-btn" title="Menu" (click)="toggleMenu()">
         <i class="fa-solid fa-bars"></i>
@@ -64,16 +61,23 @@
           <div class="mb-6">
             <label for="login-password">Senha:</label>
             <div class="password-wrapper">
-              <input [type]="loginPasswordVisible ? 'text' : 'password'" id="login-password" class="lego-input" formControlName="password">
-              <button type="button" class="toggle-password-btn" (click)="toggleLoginPasswordVisibility()" title="Mostrar/Esconder Senha">
+              <input [type]="loginPasswordVisible ? 'text' : 'password'" id="login-password" class="lego-input"
+                formControlName="password">
+              <button type="button" class="toggle-password-btn" (click)="toggleLoginPasswordVisibility()"
+                title="Mostrar/Esconder Senha">
                 <i [class]="loginPasswordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
               </button>
             </div>
           </div>
+          <div class="form-group-checkbox remember-me">
+            <input type="checkbox" id="rememberMe" formControlName="rememberMe">
+            <label for="rememberMe">Lembrar-me</label>
+          </div>
           <div class="form-actions">
             <button type="submit" class="lego-btn btn-login" [disabled]="loginForm.invalid">Entrar</button>
           </div>
-          <p class="form-toggle-text">Não tem uma conta? <button type="button" (click)="toggleForm()">Cadastre-se</button></p>
+          <p class="form-toggle-text">Não tem uma conta? <button type="button"
+              (click)="toggleForm()">Cadastre-se</button></p>
         </form>
       </div>
       } @else {
@@ -87,15 +91,18 @@
           <div class="mb-4">
             <label for="register-email">Email:</label>
             <input type="email" id="register-email" class="lego-input" formControlName="email">
-            @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)) {
+            @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty ||
+            registerForm.get('email')?.touched)) {
             <p class="error-text">Por favor, insira um email válido.</p>
             }
           </div>
           <div class="mb-4">
             <label for="register-password">Senha (mín. 6 caracteres):</label>
             <div class="password-wrapper">
-              <input [type]="registerPasswordVisible ? 'text' : 'password'" id="register-password" class="lego-input" formControlName="password">
-              <button type="button" class="toggle-password-btn" (click)="toggleRegisterPasswordVisibility()" title="Mostrar/Esconder Senha">
+              <input [type]="registerPasswordVisible ? 'text' : 'password'" id="register-password" class="lego-input"
+                formControlName="password">
+              <button type="button" class="toggle-password-btn" (click)="toggleRegisterPasswordVisibility()"
+                title="Mostrar/Esconder Senha">
                 <i [class]="registerPasswordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
               </button>
             </div>
@@ -103,8 +110,10 @@
           <div class="mb-6">
             <label for="confirm-password">Confirmar Senha:</label>
             <div class="password-wrapper">
-              <input [type]="registerConfirmPasswordVisible ? 'text' : 'password'" id="confirm-password" class="lego-input" formControlName="confirmPassword">
-              <button type="button" class="toggle-password-btn" (click)="toggleRegisterConfirmPasswordVisibility()" title="Mostrar/Esconder Senha">
+              <input [type]="registerConfirmPasswordVisible ? 'text' : 'password'" id="confirm-password"
+                class="lego-input" formControlName="confirmPassword">
+              <button type="button" class="toggle-password-btn" (click)="toggleRegisterConfirmPasswordVisibility()"
+                title="Mostrar/Esconder Senha">
                 <i [class]="registerConfirmPasswordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
               </button>
             </div>
@@ -114,12 +123,14 @@
           </div>
           <div class="form-group-checkbox">
             <input type="checkbox" id="lgpd" formControlName="lgpdConsent">
-            <label for="lgpd">Eu li e concordo com os termos de uso e <a href="https://www.ford.com.br/politica-de-privacidade/"> politica de privacidade.</a></label>
+            <label for="lgpd">Eu li e concordo com os termos de uso e <a
+                href="https://www.ford.com.br/politica-de-privacidade/"> politica de privacidade.</a></label>
           </div>
           <div class="form-actions">
             <button type="submit" class="lego-btn btn-register" [disabled]="registerForm.invalid">Cadastrar</button>
           </div>
-          <p class="form-toggle-text">Já tem uma conta? <button type="button" (click)="toggleForm()">Faça Login</button></p>
+          <p class="form-toggle-text">Já tem uma conta? <button type="button" (click)="toggleForm()">Faça Login</button>
+          </p>
         </form>
       </div>
       }
@@ -163,4 +174,18 @@
     </div>
   </div>
 </div>
+}
+
+@if (isLogoutConfirmOpen) {
+  <div id="confirm-logout-modal">
+    <div class="modal-overlay" (click)="closeLogoutConfirm()"></div>
+    <div class="modal-container confirm-modal">
+      <h3 class="modal-title">Confirmar Saída</h3>
+      <p class="confirm-text">Tem certeza que deseja sair da sua conta?</p>
+      <div class="form-actions">
+        <button class="lego-btn btn-cancel" (click)="closeLogoutConfirm()">Cancelar</button>
+        <button class="lego-btn btn-confirm-logout" (click)="confirmLogout()">Sim, sair</button>
+      </div>
+    </div>
+  </div>
 }
