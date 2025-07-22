@@ -29,3 +29,17 @@
     </button>
   </div>
 </section>
+<section class="testimonials-section">
+  <h2 class="section-title">Depoimentos</h2>
+  <div class="testimonials-grid">
+    
+    @for (testimonial of testimonials; track $index) {
+      <div class="testimonial-card">
+        <img [src]="testimonial.avatar" [alt]="'Avatar de ' + testimonial.author" class="testimonial-avatar">
+        <p class="testimonial-quote">{{ testimonial.quote }}</p>
+        <p class="testimonial-author">- {{ testimonial.author }}</p>
+      </div>
+    }
+
+  </div>
+</section>
