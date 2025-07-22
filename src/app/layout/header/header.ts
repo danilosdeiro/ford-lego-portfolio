@@ -21,6 +21,7 @@ export class Header implements OnInit, OnDestroy {
   isLoginModalOpen = false;
   isCartModalOpen = false;
   isLogoutConfirmOpen = false;
+  isPrivacyModalOpen = false;
   showLoginForm = true;
   themeIconClass = 'fa-solid fa-sun';
   currentUser: any = null;
@@ -96,13 +97,13 @@ export class Header implements OnInit, OnDestroy {
         this.isMarketplacePage = event.urlAfterRedirects === '/marketplace';
       })
     );
-    
+
     this.subscriptions.add(this.audioService.isPlaying$.subscribe(isPlaying => {
       this.isPlayingMusic = isPlaying;
     }));
   }
 
-  
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
@@ -114,6 +115,13 @@ export class Header implements OnInit, OnDestroy {
       return username.charAt(0).toUpperCase() + username.slice(1);
     }
     return '';
+  }
+
+  openPrivacyModal() {
+    this.isPrivacyModalOpen = true;
+  }
+  closePrivacyModal() {
+    this.isPrivacyModalOpen = false;
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -149,7 +157,7 @@ export class Header implements OnInit, OnDestroy {
       }
     }
   }
-  
+
   logout() { this.isLogoutConfirmOpen = true; }
   confirmLogout() {
     this.authService.logout();
@@ -175,7 +183,7 @@ export class Header implements OnInit, OnDestroy {
 
   checkout() {
     if (this.currentUser) {
-      if(this.cartItems.length > 0) {
+      if (this.cartItems.length > 0) {
         this.notificationService.show('Compra finalizada com sucesso!');
         this.cartService.clearCart();
         this.closeCartModal();

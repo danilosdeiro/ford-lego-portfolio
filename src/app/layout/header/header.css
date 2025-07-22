@@ -513,3 +513,56 @@
 #music-toggle:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+.privacy-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent-yellow);
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+}
+
+
+.privacy-policy {
+  max-width: 700px;
+  max-height: 80vh; 
+  display: flex;
+  flex-direction: column;
+}
+
+.privacy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem 0 2rem;
+  border-bottom: 4px solid var(--border-color);
+}
+
+#close-privacy-modal-btn {
+  font-size: 2.5rem;
+  line-height: 1;
+  padding: 1rem;
+}
+
+.privacy-content {
+  padding: 1rem 2rem 2rem 2rem;
+  overflow-y: auto; 
+  font-family: 'Press Start 2P', cursive;
+  color: var(--text-primary);
+}
+
+.privacy-content h4 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-yellow);
+}
+
+.privacy-content p {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
