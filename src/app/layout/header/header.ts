@@ -158,6 +158,11 @@ export class Header implements OnInit, OnDestroy {
     }
   }
 
+  onForgotPassword() {
+    this.notificationService.show('Funcionalidade em desenvolvimento.', 'error');
+    this.closeLoginModal();
+  }
+
   logout() { this.isLogoutConfirmOpen = true; }
   confirmLogout() {
     this.authService.logout();
