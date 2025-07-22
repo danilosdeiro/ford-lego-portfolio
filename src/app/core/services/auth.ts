@@ -64,5 +64,6 @@ export class AuthService {
 
   logout() {
     this.currentUserSubject.next(null);
+    sessionStorage.removeItem(this.storageKeySession);
   }
 }
