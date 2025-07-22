@@ -275,10 +275,10 @@
 }
 
 .lego-btn:disabled {
-  background-color: #003366; /* Um azul escuro e dessaturado */
-  color: #6682A3; /* Cor do texto para o botão desabilitado */
+  background-color: #003366;
+  color: #6682A3;
   cursor: not-allowed;
-  box-shadow: 3px 3px 0px #001122; /* Sombra mais escura */
+  box-shadow: 3px 3px 0px #001122;
 }
 .lego-btn:disabled:hover {
   background-color: #003366;

@@ -19,10 +19,27 @@
 
     <div class="form-group-checkbox">
       <input type="checkbox" id="lgpd" formControlName="lgpdConsent">
-      <label for="lgpd">Eu concordo com o uso dos meus dados para fins de contato, conforme a LGPD.</label>
+      <label for="lgpd-contact">Eu concordo com o uso dos meus dados para fins de contato, conforme a <button type="button" class="lgpd-link" (click)="openLgpdModal()">LGPD</button>.</label>
     </div>
 
     <button type="submit" class="lego-btn submit-btn" [disabled]="contactForm.invalid">Enviar</button>
 
   </form>
 </section>
+
+@if (isLgpdModalOpen) {
+  <div id="lgpd-modal">
+    <div class="modal-overlay" (click)="closeLgpdModal()"></div>
+    <div class="modal-container lgpd-policy">
+      <div class="lgpd-header">
+        <h3 class="modal-title">O que é a LGPD?</h3>
+        <button id="close-lgpd-modal-btn" (click)="closeLgpdModal()">&times;</button>
+      </div>
+      <div class="lgpd-content">
+        <p>A <strong>Lei Geral de Proteção de Dados (LGPD)</strong> é a lei brasileira que estabelece regras sobre como os dados pessoais (como nome, e-mail, etc.) devem ser coletados, armazenados e usados.</p>
+        <p>O objetivo principal é proteger a sua privacidade e te dar mais controle sobre suas informações.</p>
+        <p>Ao marcar a caixa de consentimento, você concorda que usemos os dados que você preencheu neste formulário especificamente para entrar em contato com você. Seus dados não serão usados para nenhuma outra finalidade.</p>
+      </div>
+    </div>
+  </div>
+}

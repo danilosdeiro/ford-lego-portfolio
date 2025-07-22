@@ -38,17 +38,17 @@ export class Home implements OnInit, OnDestroy {
     {
       quote: '"A montagem do Mustang foi uma viagem nostálgica! Cada peça encaixou perfeitamente. Um item de colecionador incrível."',
       author: 'Carlos M.',
-      avatar: 'https://placehold.co/100x100/3b82f6/FFFFFF?text=CM'
+      avatar: 'assets/images/cliente2.png'
     },
     {
       quote: '"Dei a Ranger Raptor de presente para o meu filho e montamos juntos. A qualidade é impressionante, parece indestrutível!"',
       author: 'Juliana P.',
-      avatar: 'https://placehold.co/100x100/ef4444/FFFFFF?text=JP'
+      avatar: 'assets/images/cliente1.png'
     },
     {
       quote: '"O nível de detalhes do Bronco é absurdo. É o modelo mais legal da minha estante, sem dúvida. Recomendo demais."',
       author: 'Ricardo S.',
-      avatar: 'https://placehold.co/100x100/22c55e/FFFFFF?text=RS'
+      avatar: 'assets/images/cliente3.png'
     }
   ];
 
