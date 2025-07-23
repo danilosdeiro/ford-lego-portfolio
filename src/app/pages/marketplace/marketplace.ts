@@ -47,7 +47,7 @@ export class Marketplace {
       imgBox: 'assets/images/personagensbox.jpg'
     },
         {
-      id: 6, name: 'Ford Ka Classic', price: 479.99,
+      id: 6, name: 'Ford Ka Class', price: 479.99,
       pieceCount: 293,
       imgCar: 'assets/images/fordkamp.png',
       imgBox: 'assets/images/fordkabox.png'
